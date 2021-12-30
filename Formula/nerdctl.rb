@@ -15,6 +15,7 @@ class Nerdctl < Formula
   end
 
   test do
+    assert_match version.to_s, shell_output("#{bin}/nerdctl --version")
     output = shell_output("XDG_RUNTIME_DIR=/dev/null #{bin}/nerdctl images 2>&1", 1).strip
     cleaned = output.gsub(/\e\[([;\d]+)?m/, "") # Remove colors from output
     assert_match(/^time=.* level=fatal msg="rootless containerd not running.*/m, cleaned)
